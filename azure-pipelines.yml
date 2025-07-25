@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-      - main  # Trigger pipeline on push to main branch
+      - main
 
 variables:
   azureServiceConnection: 'YourAzureConnectionName'
@@ -17,9 +17,9 @@ stages:
       pool:
         vmImage: 'ubuntu-latest'
       steps:
-        - task: UseTerraform@0
+        - task: TerraformInstaller@1
           inputs:
-            version: $(terraformVersion)
+            terraformVersion: $(terraformVersion)  # Specifies the version of Terraform to install
         - script: |
             terraform init
           workingDirectory: $(tfWorkingDirectory)
@@ -32,9 +32,9 @@ stages:
       pool:
         vmImage: 'ubuntu-latest'
       steps:
-        - task: UseTerraform@0
+        - task: TerraformInstaller@1
           inputs:
-            version: $(terraformVersion)
+            terraformVersion: $(terraformVersion)
         - script: |
             terraform plan -out=tfplan
           workingDirectory: $(tfWorkingDirectory)
@@ -60,9 +60,9 @@ stages:
       pool:
         vmImage: 'ubuntu-latest'
       steps:
-        - task: UseTerraform@0
+        - task: TerraformInstaller@1
           inputs:
-            version: $(terraformVersion)
+            terraformVersion: $(terraformVersion)
         - script: |
             terraform apply -auto-approve tfplan
           workingDirectory: $(tfWorkingDirectory)
