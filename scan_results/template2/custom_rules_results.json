@@ -1,0 +1,264 @@
+{
+  "metadata": {
+    "scan_type": "custom_rules",
+    "directory": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2"
+  },
+  "results": [
+    {
+      "rule_id": "CUSTOM002",
+      "severity": "HIGH",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 39,
+      "description": "Overly permissive network rule",
+      "details": "Allow all source IPs",
+      "remediation": "Implement least privilege network rules"
+    },
+    {
+      "rule_id": "CUSTOM002",
+      "severity": "HIGH",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 51,
+      "description": "Overly permissive network rule",
+      "details": "Allow all source IPs",
+      "remediation": "Implement least privilege network rules"
+    },
+    {
+      "rule_id": "CUSTOM002",
+      "severity": "HIGH",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 63,
+      "description": "Overly permissive network rule",
+      "details": "Allow all source IPs",
+      "remediation": "Implement least privilege network rules"
+    },
+    {
+      "rule_id": "CUSTOM002",
+      "severity": "HIGH",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 40,
+      "description": "Overly permissive network rule",
+      "details": "Allow all destination IPs",
+      "remediation": "Implement least privilege network rules"
+    },
+    {
+      "rule_id": "CUSTOM002",
+      "severity": "HIGH",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 52,
+      "description": "Overly permissive network rule",
+      "details": "Allow all destination IPs",
+      "remediation": "Implement least privilege network rules"
+    },
+    {
+      "rule_id": "CUSTOM002",
+      "severity": "HIGH",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 64,
+      "description": "Overly permissive network rule",
+      "details": "Allow all destination IPs",
+      "remediation": "Implement least privilege network rules"
+    },
+    {
+      "rule_id": "CUSTOM003",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 5,
+      "description": "Invalid resource_group naming convention",
+      "details": "Resource name 'day14-rg' doesn't match pattern '^rg-[a-z0-9-]{1,90}$'",
+      "remediation": "Follow Azure naming conventions for resource_group"
+    },
+    {
+      "rule_id": "CUSTOM003",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 12,
+      "description": "Invalid virtual_network naming convention",
+      "details": "Resource name 'terraformvnet' doesn't match pattern '^vnet-[a-z0-9-]{1,80}$'",
+      "remediation": "Follow Azure naming conventions for virtual_network"
+    },
+    {
+      "rule_id": "CUSTOM003",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 19,
+      "description": "Invalid subnet naming convention",
+      "details": "Resource name 'subnet' doesn't match pattern '^snet-[a-z0-9-]{1,80}$'",
+      "remediation": "Follow Azure naming conventions for subnet"
+    },
+    {
+      "rule_id": "CUSTOM004",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\autoscale.tf",
+      "line_number": 1,
+      "description": "Missing tags block",
+      "details": "Resource is missing a tags block entirely",
+      "remediation": "Add tags to all resources with at least: Environment, CostCenter, Owner, Project"
+    },
+    {
+      "rule_id": "CUSTOM004",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vmss.tf",
+      "line_number": 3,
+      "description": "Missing tags block",
+      "details": "Resource is missing a tags block entirely",
+      "remediation": "Add tags to all resources with at least: Environment, CostCenter, Owner, Project"
+    },
+    {
+      "rule_id": "CUSTOM004",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 4,
+      "description": "Missing tags block",
+      "details": "Resource is missing a tags block entirely",
+      "remediation": "Add tags to all resources with at least: Environment, CostCenter, Owner, Project"
+    },
+    {
+      "rule_id": "CUSTOM004",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 11,
+      "description": "Missing tags block",
+      "details": "Resource is missing a tags block entirely",
+      "remediation": "Add tags to all resources with at least: Environment, CostCenter, Owner, Project"
+    },
+    {
+      "rule_id": "CUSTOM004",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 18,
+      "description": "Missing tags block",
+      "details": "Resource is missing a tags block entirely",
+      "remediation": "Add tags to all resources with at least: Environment, CostCenter, Owner, Project"
+    },
+    {
+      "rule_id": "CUSTOM004",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 26,
+      "description": "Missing tags block",
+      "details": "Resource is missing a tags block entirely",
+      "remediation": "Add tags to all resources with at least: Environment, CostCenter, Owner, Project"
+    },
+    {
+      "rule_id": "CUSTOM004",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 68,
+      "description": "Missing tags block",
+      "details": "Resource is missing a tags block entirely",
+      "remediation": "Add tags to all resources with at least: Environment, CostCenter, Owner, Project"
+    },
+    {
+      "rule_id": "CUSTOM004",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 75,
+      "description": "Missing tags block",
+      "details": "Resource is missing a tags block entirely",
+      "remediation": "Add tags to all resources with at least: Environment, CostCenter, Owner, Project"
+    },
+    {
+      "rule_id": "CUSTOM004",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 86,
+      "description": "Missing tags block",
+      "details": "Resource is missing a tags block entirely",
+      "remediation": "Add tags to all resources with at least: Environment, CostCenter, Owner, Project"
+    },
+    {
+      "rule_id": "CUSTOM004",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 97,
+      "description": "Missing tags block",
+      "details": "Resource is missing a tags block entirely",
+      "remediation": "Add tags to all resources with at least: Environment, CostCenter, Owner, Project"
+    },
+    {
+      "rule_id": "CUSTOM004",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 104,
+      "description": "Missing tags block",
+      "details": "Resource is missing a tags block entirely",
+      "remediation": "Add tags to all resources with at least: Environment, CostCenter, Owner, Project"
+    },
+    {
+      "rule_id": "CUSTOM004",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 116,
+      "description": "Missing tags block",
+      "details": "Resource is missing a tags block entirely",
+      "remediation": "Add tags to all resources with at least: Environment, CostCenter, Owner, Project"
+    },
+    {
+      "rule_id": "CUSTOM004",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 125,
+      "description": "Missing tags block",
+      "details": "Resource is missing a tags block entirely",
+      "remediation": "Add tags to all resources with at least: Environment, CostCenter, Owner, Project"
+    },
+    {
+      "rule_id": "CUSTOM004",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 137,
+      "description": "Missing tags block",
+      "details": "Resource is missing a tags block entirely",
+      "remediation": "Add tags to all resources with at least: Environment, CostCenter, Owner, Project"
+    },
+    {
+      "rule_id": "CUSTOM004",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 147,
+      "description": "Missing tags block",
+      "details": "Resource is missing a tags block entirely",
+      "remediation": "Add tags to all resources with at least: Environment, CostCenter, Owner, Project"
+    },
+    {
+      "rule_id": "CUSTOM004",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 156,
+      "description": "Missing tags block",
+      "details": "Resource is missing a tags block entirely",
+      "remediation": "Add tags to all resources with at least: Environment, CostCenter, Owner, Project"
+    },
+    {
+      "rule_id": "CUSTOM004",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 162,
+      "description": "Missing tags block",
+      "details": "Resource is missing a tags block entirely",
+      "remediation": "Add tags to all resources with at least: Environment, CostCenter, Owner, Project"
+    },
+    {
+      "rule_id": "CUSTOM005",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 6,
+      "description": "Non-approved Azure region",
+      "details": "Region 'canadacentral' is not in the approved list",
+      "remediation": "Use one of the approved regions: eastus, eastus2, westus2, centralus, northcentralus, southcentralus, westeurope, northeurope"
+    },
+    {
+      "rule_id": "CUSTOM005",
+      "severity": "MEDIUM",
+      "file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+      "line_number": 5,
+      "description": "Invalid Azure Resource Group name",
+      "remediation": "Follow naming convention: rg-{project}-{env}"
+    }
+  ],
+  "summary": {
+    "total_checks": 27,
+    "failures": 28,
+    "warnings": 0
+  }
+}

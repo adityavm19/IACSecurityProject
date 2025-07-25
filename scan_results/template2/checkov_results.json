@@ -1,0 +1,433 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AZURE_160",
+                "bc_check_id": "BC_AZR_NETWORKING_57",
+                "check_name": "Ensure that HTTP (port 80) access is restricted from the internet",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "security_rule/[0]/access",
+                        "security_rule/[0]/direction",
+                        "security_rule/[0]/protocol",
+                        "security_rule/[0]/destination_port_range",
+                        "security_rule/[0]/destination_port_ranges",
+                        "security_rule/[0]/source_address_prefix",
+                        "security_rule/[0]/source_address_prefixes"
+                    ]
+                },
+                "code_block": [
+                    [
+                        26,
+                        "resource \"azurerm_network_security_group\" \"myNSG\" {\n"
+                    ],
+                    [
+                        27,
+                        "  name                = \"myNSG\"\n"
+                    ],
+                    [
+                        28,
+                        "  location            = azurerm_resource_group.rg.location\n"
+                    ],
+                    [
+                        29,
+                        "  resource_group_name = azurerm_resource_group.rg.name\n"
+                    ],
+                    [
+                        30,
+                        "\n"
+                    ],
+                    [
+                        31,
+                        "  security_rule {\n"
+                    ],
+                    [
+                        32,
+                        "    name                       = \"allow-http\"\n"
+                    ],
+                    [
+                        33,
+                        "    priority                   = 100\n"
+                    ],
+                    [
+                        34,
+                        "    direction                  = \"Inbound\"\n"
+                    ],
+                    [
+                        35,
+                        "    access                     = \"Allow\"\n"
+                    ],
+                    [
+                        36,
+                        "    protocol                   = \"Tcp\"\n"
+                    ],
+                    [
+                        37,
+                        "    source_port_range          = \"*\"\n"
+                    ],
+                    [
+                        38,
+                        "    destination_port_range     = \"80\"\n"
+                    ],
+                    [
+                        39,
+                        "    source_address_prefix      = \"*\"\n"
+                    ],
+                    [
+                        40,
+                        "    destination_address_prefix = \"*\"\n"
+                    ],
+                    [
+                        41,
+                        "  }\n"
+                    ],
+                    [
+                        42,
+                        "\n"
+                    ],
+                    [
+                        43,
+                        "  security_rule {\n"
+                    ],
+                    [
+                        44,
+                        "    name                       = \"allow-https\"\n"
+                    ],
+                    [
+                        45,
+                        "    priority                   = 101\n"
+                    ],
+                    [
+                        46,
+                        "    direction                  = \"Inbound\"\n"
+                    ],
+                    [
+                        47,
+                        "    access                     = \"Allow\"\n"
+                    ],
+                    [
+                        48,
+                        "    protocol                   = \"Tcp\"\n"
+                    ],
+                    [
+                        49,
+                        "    source_port_range          = \"*\"\n"
+                    ],
+                    [
+                        50,
+                        "    destination_port_range     = \"443\"\n"
+                    ],
+                    [
+                        51,
+                        "    source_address_prefix      = \"*\"\n"
+                    ],
+                    [
+                        52,
+                        "    destination_address_prefix = \"*\"\n"
+                    ],
+                    [
+                        53,
+                        "  }\n"
+                    ],
+                    [
+                        54,
+                        "  #ssh security rule\n"
+                    ],
+                    [
+                        55,
+                        "  security_rule {\n"
+                    ],
+                    [
+                        56,
+                        "    name                       = \"allow-ssh\"\n"
+                    ],
+                    [
+                        57,
+                        "    priority                   = 102\n"
+                    ],
+                    [
+                        58,
+                        "    direction                  = \"Inbound\"\n"
+                    ],
+                    [
+                        59,
+                        "    access                     = \"Allow\"\n"
+                    ],
+                    [
+                        60,
+                        "    protocol                   = \"Tcp\"\n"
+                    ],
+                    [
+                        61,
+                        "    source_port_range          = \"*\"\n"
+                    ],
+                    [
+                        62,
+                        "    destination_port_range     = \"22\"\n"
+                    ],
+                    [
+                        63,
+                        "    source_address_prefix      = \"*\"\n"
+                    ],
+                    [
+                        64,
+                        "    destination_address_prefix = \"*\"\n"
+                    ],
+                    [
+                        65,
+                        "  }\n"
+                    ],
+                    [
+                        66,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "\\vnet.tf",
+                "file_abs_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+                "repo_file_path": "/terraform/template2/vnet.tf",
+                "file_line_range": [
+                    26,
+                    66
+                ],
+                "resource": "azurerm_network_security_group.myNSG",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.azure.NSGRuleHTTPAccessRestricted",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/ensure-azure-http-port-80-access-from-the-internet-is-restricted",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf"
+            },
+            {
+                "check_id": "CKV_AZURE_10",
+                "bc_check_id": "BC_AZR_NETWORKING_3",
+                "check_name": "Ensure that SSH access is restricted from the internet",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "security_rule/[2]/access",
+                        "security_rule/[2]/direction",
+                        "security_rule/[2]/protocol",
+                        "security_rule/[2]/destination_port_range",
+                        "security_rule/[2]/destination_port_ranges",
+                        "security_rule/[2]/source_address_prefix",
+                        "security_rule/[2]/source_address_prefixes"
+                    ]
+                },
+                "code_block": [
+                    [
+                        26,
+                        "resource \"azurerm_network_security_group\" \"myNSG\" {\n"
+                    ],
+                    [
+                        27,
+                        "  name                = \"myNSG\"\n"
+                    ],
+                    [
+                        28,
+                        "  location            = azurerm_resource_group.rg.location\n"
+                    ],
+                    [
+                        29,
+                        "  resource_group_name = azurerm_resource_group.rg.name\n"
+                    ],
+                    [
+                        30,
+                        "\n"
+                    ],
+                    [
+                        31,
+                        "  security_rule {\n"
+                    ],
+                    [
+                        32,
+                        "    name                       = \"allow-http\"\n"
+                    ],
+                    [
+                        33,
+                        "    priority                   = 100\n"
+                    ],
+                    [
+                        34,
+                        "    direction                  = \"Inbound\"\n"
+                    ],
+                    [
+                        35,
+                        "    access                     = \"Allow\"\n"
+                    ],
+                    [
+                        36,
+                        "    protocol                   = \"Tcp\"\n"
+                    ],
+                    [
+                        37,
+                        "    source_port_range          = \"*\"\n"
+                    ],
+                    [
+                        38,
+                        "    destination_port_range     = \"80\"\n"
+                    ],
+                    [
+                        39,
+                        "    source_address_prefix      = \"*\"\n"
+                    ],
+                    [
+                        40,
+                        "    destination_address_prefix = \"*\"\n"
+                    ],
+                    [
+                        41,
+                        "  }\n"
+                    ],
+                    [
+                        42,
+                        "\n"
+                    ],
+                    [
+                        43,
+                        "  security_rule {\n"
+                    ],
+                    [
+                        44,
+                        "    name                       = \"allow-https\"\n"
+                    ],
+                    [
+                        45,
+                        "    priority                   = 101\n"
+                    ],
+                    [
+                        46,
+                        "    direction                  = \"Inbound\"\n"
+                    ],
+                    [
+                        47,
+                        "    access                     = \"Allow\"\n"
+                    ],
+                    [
+                        48,
+                        "    protocol                   = \"Tcp\"\n"
+                    ],
+                    [
+                        49,
+                        "    source_port_range          = \"*\"\n"
+                    ],
+                    [
+                        50,
+                        "    destination_port_range     = \"443\"\n"
+                    ],
+                    [
+                        51,
+                        "    source_address_prefix      = \"*\"\n"
+                    ],
+                    [
+                        52,
+                        "    destination_address_prefix = \"*\"\n"
+                    ],
+                    [
+                        53,
+                        "  }\n"
+                    ],
+                    [
+                        54,
+                        "  #ssh security rule\n"
+                    ],
+                    [
+                        55,
+                        "  security_rule {\n"
+                    ],
+                    [
+                        56,
+                        "    name                       = \"allow-ssh\"\n"
+                    ],
+                    [
+                        57,
+                        "    priority                   = 102\n"
+                    ],
+                    [
+                        58,
+                        "    direction                  = \"Inbound\"\n"
+                    ],
+                    [
+                        59,
+                        "    access                     = \"Allow\"\n"
+                    ],
+                    [
+                        60,
+                        "    protocol                   = \"Tcp\"\n"
+                    ],
+                    [
+                        61,
+                        "    source_port_range          = \"*\"\n"
+                    ],
+                    [
+                        62,
+                        "    destination_port_range     = \"22\"\n"
+                    ],
+                    [
+                        63,
+                        "    source_address_prefix      = \"*\"\n"
+                    ],
+                    [
+                        64,
+                        "    destination_address_prefix = \"*\"\n"
+                    ],
+                    [
+                        65,
+                        "  }\n"
+                    ],
+                    [
+                        66,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "\\vnet.tf",
+                "file_abs_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf",
+                "repo_file_path": "/terraform/template2/vnet.tf",
+                "file_line_range": [
+                    26,
+                    66
+                ],
+                "resource": "azurerm_network_security_group.myNSG",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.azure.NSGRuleSSHAccessRestricted",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/bc-azr-networking-3",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "D:\\Resume Projects\\secure-iac-deployment-pipeline\\terraform\\template2\\vnet.tf"
+            }
+        ]
+    },
+    "summary": {
+        "passed": 5,
+        "failed": 2,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 18,
+        "checkov_version": "3.2.449"
+    }
+}
