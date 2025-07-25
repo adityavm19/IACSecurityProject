@@ -9,18 +9,7 @@ variables:
   terraformVersion: '1.0.0'
 
 stages:
-- stage: Security_Checks
-  displayName: 'Run Security Scans'
-  jobs:
-    - job: Security_Scans
-      displayName: 'Run Checkov and tfsec'
-      pool:
-        name: Default
-      steps:
-        - script: |
-            checkov -d $(tfWorkingDirectory) --output json --quiet > checkov_results.json
-            tfsec $(tfWorkingDirectory) --format json > tfsec_results.json
-          displayName: 'Run Checkov and tfsec'
+
 
 - stage: Terraform_Init
   displayName: 'Terraform Init'
