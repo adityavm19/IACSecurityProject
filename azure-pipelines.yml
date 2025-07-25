@@ -23,8 +23,8 @@ stages:
           inputs:
             terraformVersion: $(terraformVersion)  # Specify Terraform version to install
         - script: |
-            terraform init  # Run terraform init to initialize the Terraform workspace
-          workingDirectory: $(tfWorkingDirectory)
+            terraform -chdir=$(tfWorkingDirectory) init  # Run terraform init to initialize the Terraform workspace
+          displayName: 'Terraform Init'
 
 - stage: Terraform_Plan
   displayName: 'Terraform Plan'
