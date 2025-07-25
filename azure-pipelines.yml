@@ -5,7 +5,7 @@ trigger:
 
 variables:
   azureServiceConnection: 'YourAzureServiceConnectionName'  # Your Azure DevOps Service Connection name
-  tfWorkingDirectory: '$(Build.SourcesDirectory)/terraform'
+  tfWorkingDirectory: '$(Build.SourcesDirectory)/terraform/template1'
   terraformVersion: '1.0.0'
 
 stages:
