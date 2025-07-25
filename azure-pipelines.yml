@@ -1,44 +1,14 @@
 trigger:
   branches:
     include:
-      - main
+      - main  # Trigger pipeline on push to main branch
 
 variables:
-  azureServiceConnection: 'YourAzureConnectionName'
+  azureServiceConnection: 'YourAzureServiceConnectionName'  # Your Azure DevOps Service Connection name
   tfWorkingDirectory: '$(Build.SourcesDirectory)/terraform'
   terraformVersion: '1.0.0'
 
 stages:
-- stage: Terraform_Init
-  displayName: 'Initialize Terraform'
-  jobs:
-    - job: Terraform_Init
-      displayName: 'Terraform Init'
-      pool:
-        vmImage: 'ubuntu-latest'
-      steps:
-        - task: TerraformInstaller@1
-          inputs:
-            terraformVersion: $(terraformVersion)  # Specifies the version of Terraform to install
-        - script: |
-            terraform init
-          workingDirectory: $(tfWorkingDirectory)
-
-- stage: Terraform_Plan
-  displayName: 'Terraform Plan'
-  jobs:
-    - job: Terraform_Plan
-      displayName: 'Run Terraform Plan'
-      pool:
-        vmImage: 'ubuntu-latest'
-      steps:
-        - task: TerraformInstaller@1
-          inputs:
-            terraformVersion: $(terraformVersion)
-        - script: |
-            terraform plan -out=tfplan
-          workingDirectory: $(tfWorkingDirectory)
-
 - stage: Security_Checks
   displayName: 'Run Security Scans'
   jobs:
@@ -48,12 +18,51 @@ stages:
         vmImage: 'ubuntu-latest'
       steps:
         - script: |
+            # Install Checkov and tfsec
+            pip install checkov tfsec
+            
+            # Run Checkov security scan
             checkov -d $(tfWorkingDirectory) --output json --quiet > checkov_results.json
+            
+            # Run tfsec security scan
             tfsec $(tfWorkingDirectory) --format json > tfsec_results.json
           displayName: 'Run Checkov and tfsec'
 
+- stage: Terraform_Init
+  displayName: 'Terraform Init'
+  condition: succeeded('Security_Checks')  # Only run if security checks pass
+  jobs:
+    - job: Terraform_Init
+      displayName: 'Run Terraform Init'
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+        - task: TerraformInstaller@1
+          inputs:
+            terraformVersion: $(terraformVersion)  # Specify Terraform version to install
+        - script: |
+            terraform init  # Run terraform init to initialize the Terraform workspace
+          workingDirectory: $(tfWorkingDirectory)
+
+- stage: Terraform_Plan
+  displayName: 'Terraform Plan'
+  condition: succeeded('Terraform_Init')  # Only run if Terraform init is successful
+  jobs:
+    - job: Terraform_Plan
+      displayName: 'Run Terraform Plan'
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+        - task: TerraformInstaller@1
+          inputs:
+            terraformVersion: $(terraformVersion)  # Ensure Terraform is installed again for this stage
+        - script: |
+            terraform plan -out=tfplan  # Run terraform plan
+          workingDirectory: $(tfWorkingDirectory)
+
 - stage: Terraform_Apply
-  displayName: 'Apply Terraform'
+  displayName: 'Terraform Apply'
+  condition: succeeded('Terraform_Plan')  # Only run if Terraform plan passes
   jobs:
     - job: Terraform_Apply
       displayName: 'Run Terraform Apply'
@@ -62,7 +71,7 @@ stages:
       steps:
         - task: TerraformInstaller@1
           inputs:
-            terraformVersion: $(terraformVersion)
+            terraformVersion: $(terraformVersion)  # Ensure Terraform is installed again for this stage
         - script: |
-            terraform apply -auto-approve tfplan
+            terraform apply -auto-approve tfplan  # Apply the Terraform plan
           workingDirectory: $(tfWorkingDirectory)
