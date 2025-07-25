@@ -41,7 +41,7 @@ stages:
             terraformVersion: $(terraformVersion)  # Ensure Terraform is installed again for this stage
         - script: |
             cd $(tfWorkingDirectory)
-            terraform plan -out=tfplan
+            terraform plan -var "resource_group_name=my-dev-rg" -var "storage_account_name=mystorageacc001" -var "location=East US" -out=tfplan
           displayName: 'Terraform Plan'
 
 - stage: Terraform_Apply
