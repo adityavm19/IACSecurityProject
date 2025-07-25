@@ -18,15 +18,15 @@ stages:
         name: Default
       steps:
         - script: |
-            # Install Checkov and tfsec
-            pip install checkov tfsec
-            
-            # Run Checkov security scan
+            python -m pip install --upgrade pip
+            pip install checkov
+            curl -L -o tfsec.exe https://github.com/aquasecurity/tfsec/releases/latest/download/tfsec-windows-amd64.exe
+            rename tfsec-windows-amd64.exe tfsec.exe
+            set PATH=%CD%;%PATH%
             checkov -d $(tfWorkingDirectory) --output json --quiet > checkov_results.json
-            
-            # Run tfsec security scan
             tfsec $(tfWorkingDirectory) --format json > tfsec_results.json
           displayName: 'Run Checkov and tfsec'
+          shell: cmd
 
 - stage: Terraform_Init
   displayName: 'Terraform Init'
