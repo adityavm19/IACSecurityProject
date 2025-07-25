@@ -26,7 +26,6 @@ stages:
             checkov -d $(tfWorkingDirectory) --output json --quiet > checkov_results.json
             tfsec $(tfWorkingDirectory) --format json > tfsec_results.json
           displayName: 'Run Checkov and tfsec'
-          shell: cmd
 
 - stage: Terraform_Init
   displayName: 'Terraform Init'
