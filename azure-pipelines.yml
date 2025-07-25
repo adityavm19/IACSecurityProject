@@ -15,7 +15,7 @@ stages:
     - job: Security_Scans
       displayName: 'Run Checkov and tfsec'
       pool:
-        vmImage: 'ubuntu-latest'
+        name: Default
       steps:
         - script: |
             # Install Checkov and tfsec
@@ -35,7 +35,7 @@ stages:
     - job: Terraform_Init
       displayName: 'Run Terraform Init'
       pool:
-        vmImage: 'ubuntu-latest'
+        name: Default
       steps:
         - task: TerraformInstaller@1
           inputs:
@@ -51,7 +51,7 @@ stages:
     - job: Terraform_Plan
       displayName: 'Run Terraform Plan'
       pool:
-        vmImage: 'ubuntu-latest'
+        name: Default
       steps:
         - task: TerraformInstaller@1
           inputs:
@@ -67,7 +67,7 @@ stages:
     - job: Terraform_Apply
       displayName: 'Run Terraform Apply'
       pool:
-        vmImage: 'ubuntu-latest'
+        name: Default
       steps:
         - task: TerraformInstaller@1
           inputs:
