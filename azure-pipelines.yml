@@ -1,0 +1,68 @@
+trigger:
+  branches:
+    include:
+      - main  # Trigger pipeline on push to main branch
+
+variables:
+  azureServiceConnection: 'YourAzureConnectionName'
+  tfWorkingDirectory: '$(Build.SourcesDirectory)/terraform'
+  terraformVersion: '1.0.0'
+
+stages:
+- stage: Terraform_Init
+  displayName: 'Initialize Terraform'
+  jobs:
+    - job: Terraform_Init
+      displayName: 'Terraform Init'
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+        - task: UseTerraform@0
+          inputs:
+            version: $(terraformVersion)
+        - script: |
+            terraform init
+          workingDirectory: $(tfWorkingDirectory)
+
+- stage: Terraform_Plan
+  displayName: 'Terraform Plan'
+  jobs:
+    - job: Terraform_Plan
+      displayName: 'Run Terraform Plan'
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+        - task: UseTerraform@0
+          inputs:
+            version: $(terraformVersion)
+        - script: |
+            terraform plan -out=tfplan
+          workingDirectory: $(tfWorkingDirectory)
+
+- stage: Security_Checks
+  displayName: 'Run Security Scans'
+  jobs:
+    - job: Security_Scans
+      displayName: 'Run Checkov and tfsec'
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+        - script: |
+            checkov -d $(tfWorkingDirectory) --output json --quiet > checkov_results.json
+            tfsec $(tfWorkingDirectory) --format json > tfsec_results.json
+          displayName: 'Run Checkov and tfsec'
+
+- stage: Terraform_Apply
+  displayName: 'Apply Terraform'
+  jobs:
+    - job: Terraform_Apply
+      displayName: 'Run Terraform Apply'
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+        - task: UseTerraform@0
+          inputs:
+            version: $(terraformVersion)
+        - script: |
+            terraform apply -auto-approve tfplan
+          workingDirectory: $(tfWorkingDirectory)
