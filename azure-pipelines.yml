@@ -13,7 +13,6 @@ stages:
 
 - stage: Terraform_Init
   displayName: 'Terraform Init'
-  condition: succeeded('Security_Checks')  # Only run if security checks pass
   jobs:
     - job: Terraform_Init
       displayName: 'Run Terraform Init'
