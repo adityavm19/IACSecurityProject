@@ -40,7 +40,7 @@ stages:
           inputs:
             terraformVersion: $(terraformVersion)  # Ensure Terraform is installed again for this stage
         - script: |
-            terraform plan -out=tfplan  # Run terraform plan
+            terraform plan -out=tfplan
           workingDirectory: $(tfWorkingDirectory)
 
 - stage: Terraform_Apply
@@ -56,5 +56,5 @@ stages:
           inputs:
             terraformVersion: $(terraformVersion)  # Ensure Terraform is installed again for this stage
         - script: |
-            terraform apply -auto-approve tfplan  # Apply the Terraform plan
+            terraform apply -auto-approve tfplan
           workingDirectory: $(tfWorkingDirectory)
