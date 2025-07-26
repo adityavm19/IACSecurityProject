@@ -23,10 +23,10 @@ stages:
           displayName: 'Use Python 3.x'
 
         - script: |
+            cd $(Build.SourcesDirectory)/scripts/
             python deploy.py --plan
           displayName: 'Run deploy.py script'
-          workingDirectory: '$(Build.SourcesDirectory)'
-
+          
 - stage: Terraform_Init
   displayName: 'Terraform Init'
   jobs:
