@@ -11,7 +11,6 @@ terraform {
     }
   }
 
-  required_version = ">= 1.9.0"
 }
 # configures the provider
 
