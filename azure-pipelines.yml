@@ -85,17 +85,20 @@ stages:
 - stage: Terraform_Apply
   displayName: 'Terraform Apply'
   condition: succeeded('Terraform_Init_Plan')  # Only run if Terraform plan passes
+  variables:
+    templatePath: '$(Build.SourcesDirectory)/terraform/${{ parameters.terraformTemplate }}'
   jobs:
-    - job: Terraform_Apply
-      displayName: 'Run Terraform Apply'
+    - job: TerraformApply
       pool:
         name: Default
       steps:
         - task: TerraformInstaller@1
           inputs:
-            terraformVersion: $(terraformVersion)  # Ensure Terraform is installed again for this stage
+            terraformVersion: $(terraformVersion)
+
         - script: |
-            cd $(tfWorkingDirectory)
+            cd "$(templatePath)"
+            dir tfplan
             terraform apply -auto-approve tfplan
           displayName: 'Terraform Apply'
 
