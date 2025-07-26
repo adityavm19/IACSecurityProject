@@ -7,6 +7,16 @@ variables:
   tfWorkingDirectory: '$(Build.SourcesDirectory)/terraform/template1'
   terraformVersion: '1.0.0'
 
+parameters:
+  - name: terraformTemplate
+    displayName: Select Terraform Template
+    type: string
+    default: template1
+    values:
+      - template1
+      - template2
+      - template3
+
 stages:
 - stage: PreDeployChecks
   displayName: 'Run Python-Based Pre-Deployment Script'
@@ -29,7 +39,7 @@ stages:
             pip install -r requirements.txt
             call venv\Scripts\activate
             cd $(Build.SourcesDirectory)/scripts/
-            python deploy.py --plan
+            python deploy.py --template ${{ parameters.terraformTemplate }} --plan
           displayName: 'Run deploy.py script'
           
 - stage: Terraform_Init
