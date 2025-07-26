@@ -84,7 +84,7 @@ stages:
 
 - stage: Terraform_Apply
   displayName: 'Terraform Apply'
-  condition: succeeded('Terraform_Plan')  # Only run if Terraform plan passes
+  condition: succeeded('Terraform_Init_Plan')  # Only run if Terraform plan passes
   jobs:
     - job: Terraform_Apply
       displayName: 'Run Terraform Apply'
