@@ -1,7 +1,6 @@
-trigger:
-  branches:
-    include:
-      - main  # Trigger pipeline on push to main branch
+trigger: none  # disables CI triggers
+pr: none       # disables PR triggers
+ # Trigger pipeline on push to main branch
 
 variables:
   azureServiceConnection: 'YourAzureServiceConnectionName'  # Your Azure DevOps Service Connection name
@@ -9,7 +8,25 @@ variables:
   terraformVersion: '1.0.0'
 
 stages:
+- stage: PreDeployChecks
+  displayName: 'Run Python-Based Pre-Deployment Script'
+  jobs:
+    - job: PythonChecks
+      displayName: 'Run deploy.py'
+      pool:
+        name: Default
+      steps:
+        - task: UsePythonVersion@0
+          inputs:
+            versionSpec: '3.x'
+            addToPath: true
+          displayName: 'Use Python 3.x'
 
+        - script: |
+            python deploy.py --plan
+          displayName: 'Run deploy.py script'
+          shell: cmd
+          workingDirectory: '$(Build.SourcesDirectory)'
 
 - stage: Terraform_Init
   displayName: 'Terraform Init'
