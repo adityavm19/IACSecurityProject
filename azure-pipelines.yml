@@ -79,6 +79,12 @@ stages:
             echo 🧪 Running terraform plan
             terraform plan -var "resource_group_name=my-dev-rg" -var "storage_account_name=mystorageacc00xc1" -var "location=East US" -var "subscription_id=$(AZURE_SUBSCRIPTION_ID)" -out=tfplan
           displayName: 'Terraform Init + Plan Combined'
+
+        - task: PublishPipelineArtifact@1
+          inputs:
+            targetPath: '$(templatePath)/tfplan'
+            artifactName: tfplan
+          displayName: 'Upload tfplan artifact'
           
 
 
@@ -95,6 +101,12 @@ stages:
         - task: TerraformInstaller@1
           inputs:
             terraformVersion: $(terraformVersion)
+
+        - task: DownloadPipelineArtifact@2
+          inputs:
+            artifact: tfplan
+            path: '$(templatePath)'
+          displayName: 'Download tfplan artifact'
 
         - script: |
             cd "$(templatePath)"
