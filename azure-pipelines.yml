@@ -45,41 +45,42 @@ stages:
             cd $(Build.SourcesDirectory)/scripts/
             python deploy.py --template ${{ parameters.terraformTemplate }} --plan
           displayName: 'Run deploy.py script'
-          
-- stage: Terraform_Init
-  displayName: 'Terraform Init'
-  jobs:
-    - job: Terraform_Init
-      displayName: 'Run Terraform Init'
-      pool:
-        name: Default
-      steps:
-        - task: TerraformInstaller@1
-          inputs:
-            terraformVersion: $(terraformVersion)  # Specify Terraform version to install
-        - script: |
-            cd "$(tfWorkingDirectory)"
-            dir
-            terraform init
-          displayName: 'Terraform Init'
 
-- stage: Terraform_Plan
-  displayName: 'Terraform Plan'
-  condition: succeeded('Terraform_Init')  # Only run if Terraform init is successful
+- stage: Terraform_Init_Plan
+  displayName: 'Terraform Init & Plan'
+  dependsOn: PreDeployChecks
+  condition: succeeded()
+  variables:
+    selectedTemplate: '${{ parameters.terraformTemplate }}'
+    templatePath: '$(Build.SourcesDirectory)/terraform/$(selectedTemplate)'
   jobs:
-    - job: Terraform_Plan
-      displayName: 'Run Terraform Plan'
+    - job: TerraformInitAndPlan
       pool:
         name: Default
       steps:
         - task: TerraformInstaller@1
           inputs:
-            terraformVersion: $(terraformVersion)  # Ensure Terraform is installed again for this stage
+            terraformVersion: $(terraformVersion)
+
         - script: |
+            echo 🚀 Showing current working directory
             cd "$(tfWorkingDirectory)"
             dir
+
+            echo 🔄 Cleaning any existing .terraform
+            rmdir /s /q .terraform || echo no .terraform folder
+
+            echo 🛠️ Running terraform init
+            terraform init -input=false -upgrade
+
+            echo 📦 Showing downloaded providers
+            terraform providers
+
+            echo 🧪 Running terraform plan
             terraform plan -var "resource_group_name=my-dev-rg" -var "storage_account_name=mystorageacc00xc1" -var "location=East US" -out=tfplan
-          displayName: 'Terraform Plan'
+          displayName: 'Terraform Init + Plan Combined'
+          
+
 
 - stage: Terraform_Apply
   displayName: 'Terraform Apply'
