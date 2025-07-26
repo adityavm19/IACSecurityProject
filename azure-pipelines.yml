@@ -78,51 +78,11 @@ stages:
 
             echo 🧪 Running terraform plan
             terraform plan -var "resource_group_name=my-dev-rg" -var "storage_account_name=mystorageacc00xc1" -var "location=East US" -var "subscription_id=$(AZURE_SUBSCRIPTION_ID)" -out=tfplan
+            terraform apply -auto-approve tfplan
           displayName: 'Terraform Init + Plan Combined'
 
-        - task: PublishPipelineArtifact@1
-          inputs:
-            targetPath: '$(templatePath)/tfplan'
-            artifactName: tfplan
-          displayName: 'Publish tfplan'
-
-        - task: PublishPipelineArtifact@1
-          inputs:
-            targetPath: '$(templatePath)/.terraform'
-            artifactName: terraform_plugins
-          displayName: 'Publish .terraform plugin cache'
+        
           
 
 
-- stage: Terraform_Apply
-  displayName: 'Terraform Apply'
-  condition: succeeded('Terraform_Init_Plan')  # Only run if Terraform plan passes
-  variables:
-    templatePath: '$(Build.SourcesDirectory)/terraform/${{ parameters.terraformTemplate }}'
-  jobs:
-    - job: TerraformApply
-      pool:
-        name: Default
-      steps:
-        - task: TerraformInstaller@1
-          inputs:
-            terraformVersion: $(terraformVersion)
-
-        - task: DownloadPipelineArtifact@2
-          inputs:
-            artifact: tfplan
-            path: '$(templatePath)'
-          displayName: 'Download tfplan'
-
-        - task: DownloadPipelineArtifact@2
-          inputs:
-            artifact: terraform_plugins
-            path: '$(templatePath)/.terraform'
-          displayName: 'Download .terraform plugin cache'
-
-        - script: |
-            cd "$(templatePath)"
-            dir tfplan
-            terraform apply -auto-approve tfplan
-          displayName: 'Terraform Apply'
 
