@@ -23,6 +23,7 @@ stages:
           displayName: 'Use Python 3.x'
 
         - script: |
+            pip install -r requirements.txt
             cd $(Build.SourcesDirectory)/scripts/
             python deploy.py --plan
           displayName: 'Run deploy.py script'
