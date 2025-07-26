@@ -77,7 +77,7 @@ stages:
             terraform providers
 
             echo 🧪 Running terraform plan
-            terraform plan -var "resource_group_name=my-dev-rg" -var "storage_account_name=mystorageacc00xc1" -var "location=East US" -out=tfplan
+            terraform plan -var "resource_group_name=my-dev-rg" -var "storage_account_name=mystorageacc00xc1" -var "location=East US" -var "subscription_id=$(AZURE_SUBSCRIPTION_ID)" -out=tfplan
           displayName: 'Terraform Init + Plan Combined'
           
 
