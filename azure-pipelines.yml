@@ -25,7 +25,6 @@ stages:
         - script: |
             python deploy.py --plan
           displayName: 'Run deploy.py script'
-          shell: cmd
           workingDirectory: '$(Build.SourcesDirectory)'
 
 - stage: Terraform_Init
