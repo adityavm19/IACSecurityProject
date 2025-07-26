@@ -2,10 +2,7 @@ trigger: none  # disables CI triggers
 pr: none       # disables PR triggers
  # Trigger pipeline on push to main branch
 
-variables:
-  azureServiceConnection: 'YourAzureServiceConnectionName'  # Your Azure DevOps Service Connection name
-  tfWorkingDirectory: '$(Build.SourcesDirectory)/terraform/template1/'
-  terraformVersion: '1.0.0'
+
 
 parameters:
   - name: terraformTemplate
@@ -16,6 +13,13 @@ parameters:
       - template1
       - template2
       - template3
+
+
+variables:
+  azureServiceConnection: 'YourAzureServiceConnectionName' 
+  selectedTemplate: '${{ parameters.terraformTemplate }}' # Your Azure DevOps Service Connection name
+  tfWorkingDirectory: '$(Build.SourcesDirectory)/terraform/$(selectedTemplate)'
+  terraformVersion: '1.0.0'
 
 stages:
 - stage: PreDeployChecks
@@ -54,7 +58,8 @@ stages:
           inputs:
             terraformVersion: $(terraformVersion)  # Specify Terraform version to install
         - script: |
-            cd $(tfWorkingDirectory)
+            cd "$(tfWorkingDirectory)"
+            dir
             terraform init
           displayName: 'Terraform Init'
 
@@ -71,8 +76,9 @@ stages:
           inputs:
             terraformVersion: $(terraformVersion)  # Ensure Terraform is installed again for this stage
         - script: |
-            cd $(tfWorkingDirectory)
-            terraform plan -var "resource_group_name=my-dev-rg" -var "storage_account_name=mystorageacc001" -var "location=East US" -out=tfplan
+            cd "$(tfWorkingDirectory)"
+            dir
+            terraform plan -var "resource_group_name=my-dev-rg" -var "storage_account_name=mystorageacc00xc1" -var "location=East US" -out=tfplan
           displayName: 'Terraform Plan'
 
 - stage: Terraform_Apply
