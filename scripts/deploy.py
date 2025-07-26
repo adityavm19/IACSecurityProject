@@ -13,13 +13,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 load_dotenv()   # New import
 
-def select_template():
-    templates = ["template1", "template2", "template3"]
-    print("Select which Terraform template to deploy:")
-    for idx, template in enumerate(templates, 1):
-        print(f"{idx}. {template}")
-    choice = int(input("Enter the number of the template to deploy: ")) - 1
-    return templates[choice]
+
 
 def run_pre_deployment_checks(template):
     print("🔍 Running pre-deployment security checks...")
@@ -156,12 +150,12 @@ def display_summary(scan_results):
 
 def main():
     parser = argparse.ArgumentParser(description="Run Terraform deployment with security checks.")
+    parser.add_argument('--template', required=True, help="Terraform template folder name to deploy")
     parser.add_argument('--plan', action='store_true', help="Run Terraform plan and display security findings")
     parser.add_argument('--apply', action='store_true', help="Run Terraform apply after security checks")
     
     args = parser.parse_args()
-
-    template = select_template()
+    template = args.template
 
     try:
         # Run Pre-Deployment Checks for `--plan` mode
