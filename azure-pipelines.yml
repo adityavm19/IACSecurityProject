@@ -4,7 +4,7 @@ pr: none       # disables PR triggers
 
 variables:
   azureServiceConnection: 'YourAzureServiceConnectionName'  # Your Azure DevOps Service Connection name
-  tfWorkingDirectory: '$(Build.SourcesDirectory)/terraform/template1'
+  tfWorkingDirectory: '$(Build.SourcesDirectory)/terraform/template1/'
   terraformVersion: '1.0.0'
 
 parameters:
