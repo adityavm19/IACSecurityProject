@@ -84,7 +84,13 @@ stages:
           inputs:
             targetPath: '$(templatePath)/tfplan'
             artifactName: tfplan
-          displayName: 'Upload tfplan artifact'
+          displayName: 'Publish tfplan'
+
+        - task: PublishPipelineArtifact@1
+          inputs:
+            targetPath: '$(templatePath)/.terraform'
+            artifactName: terraform_plugins
+          displayName: 'Publish .terraform plugin cache'
           
 
 
@@ -106,7 +112,13 @@ stages:
           inputs:
             artifact: tfplan
             path: '$(templatePath)'
-          displayName: 'Download tfplan artifact'
+          displayName: 'Download tfplan'
+
+        - task: DownloadPipelineArtifact@2
+          inputs:
+            artifact: terraform_plugins
+            path: '$(templatePath)/.terraform'
+          displayName: 'Download .terraform plugin cache'
 
         - script: |
             cd "$(templatePath)"
